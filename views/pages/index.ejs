@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <%- include('../partials/head'); %>
+</head>
+<body class="container">
+
+<header>
+  <%- include('../partials/header'); %>
+</header>
+
+<div id="selector"> 
+  <h2>Appvia.io MyMap
+  </h2>
+  <p>Personal mapping application - add and recall your favourite places.</p>
+
+  <select class="form-select" aria-label="Default select example" id="dataSet"> 
+    <% labels.forEach(function(label) { %>
+      <option id="<%= label.aoi_name %>"><%= label.display %></option>
+    <% }); %>
+  </select>
+   <button type="button" class="btn btn-primary" onclick="requestUpdate()">Click me</button>
+</div>
+
+<div id="map"> </div>
+<script
+  src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDaZlp89WgPy2Nx_RVjcZ2czgXLCDKl3UY &callback=initMap&v=weekly"
+  defer>
+</script>
+
+<main>
+</main>
+
+<footer>
+  <%- include('../partials/footer'); %>
+</footer>
+
+</body>
+</html>

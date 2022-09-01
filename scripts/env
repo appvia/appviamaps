@@ -1,0 +1,1 @@
+PGUSER=mapsdb PGHOST=localhost PGPASSWORD=password PGDATABASE=mapsdb PGPORT=3211 npm start
