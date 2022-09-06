@@ -1,7 +1,3 @@
-function hi() { 
-    alert("hi");
-}
-
 /**
  * The main update function called directly from one of the UI components. 
  * This kick off a call to the backend services which will return a set of data to display on the map. 
@@ -26,7 +22,9 @@ function requestUpdate(){
  * @returns 
  */
 async function fetchData(queryParams) {
-  const response = await fetch('http://localhost:9000/getMapData?'+queryParams);
+  const response = await fetch('/getMapData?'+queryParams);
+  //const response = await fetch('<%= serviceURL %>' +queryParams);
+  
   const data = await response.json();
   return data;
 }

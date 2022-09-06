@@ -1,12 +1,20 @@
 const pgp = require('pg-promise')(/* options */)
-const db = pgp('postgres://mapsdb:password@localhost:5432/mapsdb')
+require('dotenv').config();
+//const db = pgp('postgres://mapsdb:password@localhost:5432/mapsdb')
+//const db = pgp('postgres://mapsdb:password@host.docker.internal:5432/mapsdb')
+const dbUrl = "postgres://postgres:password@graemedb.c6oqnsapeddz.eu-west-2.rds.amazonaws.com:5432/postgres";
+const dbUrl2 = process.env.DATABASE_URL;
+const db = pgp(dbUrl);
+console.log("DATABASE: " +dbUrl2 );
+console.log(process.env);
 
-// const labels = [{id:"myhouse", displayName:"My FHouse"},{id:"pubsnearme", displayName:"Pubs Near Me"}];
+
+const defaultlabels = [{id:"myhouse", displayName:"My FHouse"},{id:"pubsnearme", displayName:"Pubs Near Me"}];
 // const myHouse='{"lat": 51.437603, "long": -2.072247}';
 // const dataToReturn="";
 
 /**
- * return a set of data points 
+ * return a set of data points for the label <label>
  */
   function getData(label, cb) {
     //Get the data tag to return from the URL
@@ -18,7 +26,7 @@ const db = pgp('postgres://mapsdb:password@localhost:5432/mapsdb')
     })
     .catch((error) => {
         console.log('ERROR:', error); 
-        cb(data);
+        cb(error);
   })
 };
 
@@ -34,11 +42,10 @@ function getLabels(cb){
         cb(data);
     })
     .catch((error) => {
-        console.log('ERROR:', error)
-        cb(data);
+        console.log('ERROR:', error);
+        cb(defaultlabels);
   })
 }
-
 
 
 /**
