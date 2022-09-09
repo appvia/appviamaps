@@ -2,8 +2,8 @@ const pgp = require('pg-promise')(/* options */)
 require('dotenv').config();
 //const db = pgp('postgres://mapsdb:password@localhost:5432/mapsdb')
 //const db = pgp('postgres://mapsdb:password@host.docker.internal:5432/mapsdb')
-const dbUrl = "postgres://postgres:password@graemedb.c6oqnsapeddz.eu-west-2.rds.amazonaws.com:5432/postgres";
-//const dbUrl = process.env.DATABASE_URL;
+//const dbUrl = "postgres://postgres:password@graemedb.c6oqnsapeddz.eu-west-2.rds.amazonaws.com:5432/postgres";
+const dbUrl = process.env.DATABASE_URL;
 const db = pgp(dbUrl);
 console.log("DATABASE: " +dbUrl );
 console.log(process.env);
