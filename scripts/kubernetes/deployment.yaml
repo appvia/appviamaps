@@ -1,0 +1,43 @@
+apiVersion: apps/v1
+
+kind: Deployment
+
+metadata:
+  name: amd 
+  labels:
+    app: amd
+    app.kubernetes.io/name: amd
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: amd
+  template:
+    metadata:
+      labels:
+        app: amd
+        app.kubernetes.io/name: amd
+    spec:
+      containers:
+      - name: appviamaps
+        image: gcolman/appviamaps
+        imagePullPolicy: Always
+        ports:
+        - containerPort: 9000
+        securityContext:
+          runAsUser: 5000
+          privileged: false
+          runAsNonRoot: true
+          allowPrivilegeEscalation: false
+          capabilities:
+            drop:
+             - ALL  
+        volumeMounts:
+        - name: envvars
+          mountPath: "/home/node/app/.Env"
+          subPath: ".Env"
+          readOnly: true
+      volumes:
+      - name: "envvars"
+        configMap:
+          name: "env"

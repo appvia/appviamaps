@@ -1,0 +1,44 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: amd-service-ingress
+  namespace: frontend
+  annotations:
+    cert-manager.io/cluster-issuer: "prod-le-dns01" 
+spec:
+  ingressClassName: external
+  rules:
+  - host: mdw-ukdemo.demo-aws.wf.appvia.io
+    http:
+      paths:
+      - backend:
+          service:
+            name: amd-service
+            port:
+              number: 8080
+        path: /
+        pathType: Prefix
+  tls:
+  - hosts:
+    - mdw-ukdemo.demo-aws.wf.appvia.io
+    secretName: amd-service-ingress-tls
+---
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: amd-service-ingress
+  namespace: frontend
+spec:
+  ingress:
+    - ports:
+        - protocol: TCP
+          port: 9000
+      from:
+        - namespaceSelector:
+            matchLabels:
+              kubernetes.io/metadata.name: ingress
+  podSelector: 
+    matchLabels:
+      app.kubernetes.io/name: "amd"
+  policyTypes:
+    - Ingress

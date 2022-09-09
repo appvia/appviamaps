@@ -1,15 +1,33 @@
 const dataServices = require("./dataServices.js");
+const fs = require('fs');
 const express = require('express');
+require('dotenv').config({ path: require('find-config')('.Env') })
 const app = express();
 const port = 9000;
 app.set('view engine', 'ejs');
 app.use(express.static('src/public'));
 
+
+console.log(process.env);
 const appviamp_api_key = process.env.APPVIAMAP_API_KEY;
 const service_url = process.env.SERVICE_URL;
+console.log("api=" +appviamp_api_key + " - svc=" +service_url);
+
+/**
+ * FIXME 
+ * For some reason we need to read the .Env file before the process.env can read it. 
+ * DOn't really know why but need to ffix.
+ */
+fs.readFile('./.Env', 'utf8', (err, data) => {
+  if (err) {
+    console.error(err);
+    return;
+  }
+  console.log(data);
+});
 
 
-app.listen(port, () => {
+app.listen(port, "0.0.0.0", () => {
     console.log(`Listening on port ${port}`);
 });
 
@@ -40,6 +58,8 @@ app.get('/getMapData', (req, res) => {
         JSON
         res.send(data);
     })
+
+    
     
 });
 
