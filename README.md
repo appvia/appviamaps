@@ -6,21 +6,21 @@ The following instructions will walk  through getting going from scratch with Ap
 
  1.  Getting an Appvia Wayfinder instance through cloud marketplace
  2. Configuring your Wayfinder instance ready for teams to start coding
-	 2.1 Configure your cloud account
-	 2.2. Configuring users
-	 2.3 Configuring your external DNS
+ 3. Configure your cloud account
+ 4. Configuring users
+ 5. Configuring your external DNS
  3. Team workspace setup
-	 3.1. Creating a Workspace
-	 3.2 Creating a cluster plan
-	 3.3 Create a Kuernetes cluster
-4. Deploy your application
-	4.1 Build the frontend container
-	4.2 Build the backend services container
-	4.3 Create the Kubernetes configuration files
-		4.3.1 deployment.yaml
-		4.3.2 service.yaml
-		4.3.3 ingress.yaml
-5. Running your application
+ 6. Creating a Workspace
+ 7. Creating a cluster plan
+ 8. Create a Kuernetes cluster
+ 9. Deploy your application
+ 10. Build the frontend container
+ 11. Build the backend services container
+ 12. Create the Kubernetes configuration files
+ 13. deployment.yaml
+ 14. service.yaml
+ 15. ingress.yaml
+ 16. Running your application
 
 # Getting an Appvia Wayfinder instance through cloud marketplace
 
@@ -34,6 +34,32 @@ Follow the instructions from the marketplace page to create a Wayfinder instance
 
 ## Amazon AWS
 We'll come back to this service. 
+
+# Configuring your Wayfinder instance ready for teams to start coding
+
+Once you have a basic Wayfinder instance up and running there are some important steps that a Wayfinder administrator must complete to make the platform vilable to end users to start creating resources. 
+
+##  Configure your cloud account
+Wayfinder has been installed into your public cloud of choce either through a cloud marketplace or a manual install. Wayfinder is a control plane for creating anad managing resources on **any cloud**. For Wayfinder to create services in your public cloud, it **must** have access to that coud account with roles that enable Wayfinder to create and manage resoruces.    
+
+The marketplace install will have installed a Wayfinder instance and exported the credentials used into the properties of the markeplace application intall. e.g. Azure marketplace will have created wayfinder as a "managed application", click into that managed application in the Azure portal and click on the "Parameters and Outputs" link on the left hand navigation pane to show the login url, localAdmin user details and temporary password. 
+
+Log into your Wayfinder instance using these credentials. This will take us to the landing page as a Wayfinder 'localAdmin' administrator user. We will use this user to get up and running. 
+
+Click on the quickstart page tile "Connect your cloud accounts" 
+
+Here we can configure a cloud account onto one of the three clouds that you want to start creating clusters and resources. Clicking on the "Connect Account" button on the top right we are presented with a choice of two types of accounts that can be configured:
+
+**Connect an existing account**
+This choice allows us to bring an exiting account under the control of Wayfinder, where all clusters and cloud resources will be created. 
+
+**Use multi-account automation**
+This choice allows us to bring an organizational account into Wayfinder. This choice will allow Wayfinder to create brand new isolated cloud accounts on your behalf into which Wayfinder will create resources, This allows futher secure isolation with many teams having resources within individual cloud accounts managed by Wayfinder. 
+
+
+
+
+
 
 
 ## SmartyPants
