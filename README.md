@@ -32,6 +32,8 @@ https://azuremarketplace.microsoft.com/en-us/marketplace/apps/appvialtd.wayfinde
 
 Follow the instructions from the marketplace page to create a Wayfinder instance. There's a video on the main marketplace page that takes you through the steps to get up and running. 
 
+![Microsoft Azure managed application page](/img/img1.jpeg)
+
 ## Amazon AWS
 We'll come back to this service. 
 
@@ -44,11 +46,13 @@ Wayfinder has been installed into your public cloud of choce either through a cl
 
 The marketplace install will have installed a Wayfinder instance and exported the credentials used into the properties of the markeplace application intall. e.g. Azure marketplace will have created wayfinder as a "managed application", click into that managed application in the Azure portal and click on the "Parameters and Outputs" link on the left hand navigation pane to show the login url, localAdmin user details and temporary password. 
 
-Log into your Wayfinder instance using these credentials. This will take us to the landing page as a Wayfinder 'localAdmin' administrator user. We will use this user to get up and running. 
+**Log into your Wayfinder instance using these credentials.** This will take us to the landing page as a Wayfinder 'localAdmin' administrator user. We will use this user to get up and running.
 
-Click on the quickstart page tile "Connect your cloud accounts" 
+**Click on the quickstart page tile "Connect your cloud accounts"**
 
 Here we can configure a cloud account onto one of the three clouds that you want to start creating clusters and resources. Clicking on the "Connect Account" button on the top right we are presented with a choice of two types of accounts that can be configured:
+
+![Wayfinder account creation](/img/img3.jpeg )
 
 **Connect an existing account**
 This choice allows us to bring an exiting account under the control of Wayfinder, where all clusters and cloud resources will be created. 
