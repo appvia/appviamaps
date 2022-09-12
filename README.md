@@ -84,7 +84,7 @@ Click onto the cloud account and select the features tab,, clicking on one of th
 ![Wayfinder account creation](/img/img10.jpeg )
 
 ```wf setup roles -w admin --cloud-account [your cloud account name]```
-*nb. omit the role to tell wf to set ip all roles*
+*nb: omit the individual role names to tell wf to set up all roles*
 
 This command performs the linking of the Wayfinder components to the underlying cloud account to set up IAM and Could Roles. 
 
