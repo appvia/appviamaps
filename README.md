@@ -84,8 +84,20 @@ Once this is run from the UI, you will nothice that there are items highlighted 
 
 This command performs the linking of the Wayfinder components to the underlying cloud account to set up IAM and Could Roles. 
 
+# Configuring users
 
+For this tutorial we will not configure any new users.We'll use the localAdmin user that was asutomatically created during the install. 
 
+# Configuring external DNS
 
+Wayfinder makes it simple for your developers to create applications and expose them externally through managed DNS. We'll configure this instance to manage DNS for our develoeprs. 
+
+We will configure a parent DNS zone that will be made available to any workspace. which will automatically provision child DNS zones whenever a cluster ingress is created. There are many options to configure but we'll adopt this simple use case.  
+
+Select the **Manage self-service DNS zones** tile from the administator page. 
+
+![set ip DNS](/img/img5.jpeg )
+
+**Fill out the DNS form following instructions here: https://docs.appvia.io/wayfinder/admin/networking/dns**
 
 
