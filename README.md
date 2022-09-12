@@ -72,7 +72,6 @@ Here we can configure a cloud account onto one of the three clouds that you want
 
 ![Wayfinder account creation](/img/img3.jpeg )
 
-
 **Choose to create an exiting shared accout and fill out the the coud account details**
 This tutorial assimes that you have installed Wayfinder from Azure Marketplace, and as such already has a cloud identity automatically created. If this is not the case then follow the instructions here: https://docs.appvia.io/wayfinder/admin/accounts/azure-cloud-identity
 
@@ -80,7 +79,12 @@ This tutorial assimes that you have installed Wayfinder from Azure Marketplace, 
 
 Once this is run from the UI, you will nothice that there are items highlighted with **"Action Required"** which indicate that you must run some CLI commands. Execute the following commmands (You must log into your Azure CLI before executing thise commands):
 
-```wf setup roles```
+Click onto the cloud account and select the features tab,, clicking on one of the features with a red warning triangle should give you the commands needed to execute from the wf cli. 
+
+![Wayfinder account creation](/img/img10.jpeg )
+
+```wf setup roles -w admin --cloud-account [your cloud account name]```
+*nb. omit the role to tell wf to set ip all roles*
 
 This command performs the linking of the Wayfinder components to the underlying cloud account to set up IAM and Could Roles. 
 
@@ -115,7 +119,7 @@ This page show the the workspaces that you are a member of. There should be no w
 
 ![Create Workspace modal](/img/img7.jpeg )
 
-**Give the workspace a name and a three letter code for the workspace and click next.**
+**Create the workspace with the name 'Appvia Maps Workspace' and the three letter code 'mdw' and click next.**
 
 At this point you are given the choice to add workspace mambers, we'll skip this and create the workspace by clicking **"go to workspace"**
 
@@ -124,7 +128,14 @@ We'll be presented with the workspace landing page with similar quickstart tiles
 ![Workspace main page](/img/img8.jpeg )
 
 ## Creating a cluster plan
-
 At this point we could create a cluster plan to template and guardrail our users to help define or restrict the Kubernetes clusters that they will be able to create. We are going to stick to the out of the box pre-defined cluster plans for mow which provide sensible defaults. 
 
 # Creating your Kubernetes cluster 
+Let's create the Kubernetes cluster we are going to use to deploy our application.
+
+From the 'mdw' Workspace click on the tile 
+
+![Create Cluster tile](/img/img9.jpeg )
+
+
+
