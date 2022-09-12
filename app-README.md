@@ -217,7 +217,4 @@ kubectl apply -f scripts/kubernetes/service.yaml
 kubectl apply -f scripts/kubernetes/ingress.yaml
 ```
 
-### Running your application
-
-
 
