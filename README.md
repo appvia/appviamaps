@@ -16,29 +16,33 @@ The tutorial is split into two sections.
 [**Part One - Setting up Appvia Wayfinder**](admin-README.md)
 The first part of the tutorial walks through setting up Appvia Wayfinder with the basic defaults from Microsoft Azure Marketplace ready to use to deploy the demo app with a public endpoint.
 
-[**Part Two - Deploying Appvia Maps Application**](app-README.md)
+[**Part Two - Creating clusters and Deploying the Appvia Maps Application**](app-README.md)
 The following instructions will walk  through getting going from scratch with Appvia Wayfinder. 
 
 The table of contents below shows the steps outlined in both of the sections. 
 
 ### Table of Contents
 
+**Part One - Setting up Appvia Wayfinder**
  1. Getting an Appvia Wayfinder instance through cloud marketplace
  2. Download the Wayfinder CLI
- 2. Configuring your Wayfinder instance ready for teams to start coding
- 3. Configure your cloud account
- 4. Configuring users
- 5. Configuring your external DNS
- 3. Team workspace setup
- 6. Creating a Workspace
+ 3. Configuring your Wayfinder instance ready for teams to start coding
+ 4. Configure your cloud account
+ 5. Configuring users
+ 6. Configuring your external DNS
  7. Creating a cluster plan
- 8. Create a Kuernetes cluster
- 9. Deploy your application
- 10. Build the frontend container
- 11. Build the backend services container
- 12. Create the Kubernetes configuration files
- 13. deployment.yaml
- 14. service.yaml
- 15. ingress.yaml
- 16. Running your application
+ 
+ **Part Two - Creating clusters and Deploying the Appvia Maps Application**
+ 1. Team workspace setup
+ 2. Creating a Workspace
+ 3. Creating a cluster plan
+ 4. Create a Kuernetes cluster
+ 5. Deploy your application
+ 6. Build the frontend container
+ 7. Build the backend services container
+ 8. Create the Kubernetes configuration files
+ 9. deployment.yaml
+ 10. service.yaml
+ 11. ingress.yaml
+ 12. Running your application
 
