@@ -137,6 +137,8 @@ Your Kubectl has now been configured to point at the **"ukdemo"** cluster with a
 ## Create & Configure Database
 The application retrieves map data from a postgres database. We must first configure the database for the application. Version 1 of this tutorial uses a pre-configured DB and does not walk thrugh the creation of the database. We are assuming that a PostgreSQL varient of database has been provisioned and the database URL made available externally to the application. 
 
+For this tutorial I am using an Amazon RDS database, mainly because I can ustilse the free tier of database service. Once you have the database available you must configure the DB with the following scripts. The datbase connection string must be saved as DATABASE_URL and copied into the .Env file that you will creat later in this section.
+
 ### Database creation scripts 
 The database creation scripts are defined in [scripts/database.sql](scripts/database.sql)
 From your sql editor execute the following command:
