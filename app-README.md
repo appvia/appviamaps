@@ -134,8 +134,20 @@ Your Kubectl has now been configured to point at the **"ukdemo"** cluster with a
 - Build the Application Containers
 - Deploy the application to Kubernetes 
 
-## Create & Conigure Database
-The application
+## Create & Configure Database
+The application retrieves map data from a postgres database. We must first configure the database for the application. Version 1 of this tutorial uses a pre-configured DB and does not walk thrugh the creation of the database. We are assuming that a PostgreSQL varient of database has been provisioned and the database URL made available externally to the application. 
+
+### Database creation scripts 
+The database creation scripts are defined in [scripts/database.sql](scripts/database.sql)
+From your sql editor execute the following command:
+```
+psql -h [hostname] -p 5432 -U [username] -f database.sql
+```
+
+
+### Database data 
+The database initialisation data scripts are defined in [scripts/data.sql](scripts/data.sql)
+
 
 ## Building the application
 This section runs through building and deploying the application. We would usually use a packaging framework like Helm to help us, but we will go through manual configuration to better our understaning og the components and configuration.
