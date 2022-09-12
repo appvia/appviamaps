@@ -133,9 +133,22 @@ At this point we could create a cluster plan to template and guardrail our users
 # Creating your Kubernetes cluster 
 Let's create the Kubernetes cluster we are going to use to deploy our application.
 
-From the 'mdw' Workspace click on the tile 
+From the 'mdw' Workspace click on the 'Create Cluster' tile 
 
 ![Create Cluster tile](/img/img9.jpeg )
 
+From here. we will create am AKS cluster within the subscription that we set up earlier. Select the default AKS cluster plan, accepting all of the defaults and then click on the **"Create"** button. 
 
 
+![Create Cluster details](/img/img10.jpeg )
+
+On the next modal create a "demo" namespace and continue.
+
+This will take between 7-20 mins to create an AKS cluster and be ready to go. 
+
+# Deploying the AppviaMaps application
+
+We should have everything now set up ready to build and deploy our application. 
+
+
+![App architecture](/img/img12.jpeg )
