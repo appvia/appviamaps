@@ -23,7 +23,7 @@ The table of contents below shows the steps outlined in both of the sections.
 
 ### Table of Contents
 
-**Part One - Setting up Appvia Wayfinder**
+[**Part One - Setting up Appvia Wayfinder**](app-README.md)
  1. Getting an Appvia Wayfinder instance through cloud marketplace
  2. Download the Wayfinder CLI
  3. Configuring your Wayfinder instance ready for teams to start coding
@@ -32,7 +32,7 @@ The table of contents below shows the steps outlined in both of the sections.
  6. Configuring your external DNS
  7. Creating a cluster plan
  
- **Part Two - Creating clusters and Deploying the Appvia Maps Application**
+ [**Part Two - Creating clusters and Deploying the Appvia Maps Application**](admin-README.md)
  1. Team workspace setup
  2. Creating a Workspace
  3. Creating a cluster plan
