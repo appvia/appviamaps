@@ -7,6 +7,7 @@
 4. Configure your cloud account
 5. Configuring users
 6. Configuring your external DNS
+7. Create a cluster plan
 
 # Getting an Appvia Wayfinder instance through cloud marketplace
 
