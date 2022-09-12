@@ -105,3 +105,26 @@ You will be presented with an **Action Required** with NS records that are requi
 
 # Setting up your team workspaces
 
+The last part of wortk we need to do in setting up ready to start coding is to create a team workspace. The workspace is where we add team users, create clusters and apply policy.
+
+Creating a workspace is very simple. Switch to the user view of Wayfinder by clicking on the Wayfinder logo on the top left hand side of the UI.
+
+![Switch to the Wayfinder user page](/img/img6.jpeg )
+
+This page show the the workspaces that you are a member of. There should be no workspaces in a new cluster so **click on the "Add Workspace" button** at the top right of the page. 
+
+![Create Workspace modal](/img/img7.jpeg )
+
+**Give the workspace a name and a three letter code for the workspace and click next.**
+
+At this point you are given the choice to add workspace mambers, we'll skip this and create the workspace by clicking **"go to workspace"**
+
+We'll be presented with the workspace landing page with similar quickstart tiles that you saw in the Admin page. 
+
+![Workspace main page](/img/img8.jpeg )
+
+## Creating a cluster plan
+
+At this point we could create a cluster plan to template and guardrail our users to help define or restrict the Kubernetes clusters that they will be able to create. We are going to stick to the out of the box pre-defined cluster plans for mow which provide sensible defaults. 
+
+# Creating your Kubernetes cluster 
