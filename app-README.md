@@ -150,6 +150,9 @@ The database initialisation data scripts are defined in [scripts/data.sql](scrip
 ```
 psql -h [hostname] -p 5432 -U [username] -f data.sql
 ```
+## Configure Google Maps API Access
+https://developers.google.com/maps/documentation/javascript/get-api-key
+
 
 ## Building the application
 This section runs through building and deploying the application. We would usually use a packaging framework like Helm to help us, but we will go through manual configuration to better our understaning og the components and configuration.
