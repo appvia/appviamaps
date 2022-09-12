@@ -121,12 +121,61 @@ wf access cluster
 ```
 
 Select the role **"namespace.admin"** : this will evelvate your users priviledge to be the administrator of a namespace 
-Select the **"frontend"** namespace  
-
 ![Access Cluster](/img/img18.jpeg )
+
+Select the **"frontend"** namespace  
 ![Access Cluster](/img/img19.jpeg )
 
-Your Kubectl has now been configured to point at the **""ukdemo""** cluster with admin proviledges for the **"frontend""** namespace.
+Your Kubectl has now been configured to point at the **"ukdemo"** cluster with admin proviledges for the **"frontend"** namespace.
 
+## Building and Deploying the application
+This section runs through building and deploying the application. We would usually use a packaging framework like Helm to help us, but we will go through manual configuration to better our understaning og the components and configuration.
+
+**Prerequisite - You need to have a container builder susch as [Docker Engine (Linux)](https://docs.docker.com/desktop/install/linux-install/), [Docker desktop (Mac/Windows)](https://www.docker.com/products/docker-desktop/) or [Podman (Mac/linux)](https://podman.io/)** 
+
+### Build the frontend container
+
+Firstly we will buld the frontend container image: 
+The [Dockerfile](/Dockerfile) in this project contains the frontend containerisation instructions. Take a look at the Dockerfile to understand. 
+
+```
+docker build . -t [YOUR_REPO/IMAGENAME:IMAGETAG]
+```
+
+```
+docker push  [YOUR_REPO/IMAGENAME:IMAGETAG]
+```
+
+### Build the backend services container
+The services is currently deployed in a single container (frontend) the next version will split the frontend and backend containers. 
+
+### Create the Kubernetes configuration
+Our Kubernetes configuration is fairly simple, consiting of:
+
+**Deployment** Describing our Kubernetes pod, which points to our container image, and configures thingss likle replica sets etc.
+**Service** Describes the **internall** service endpoint that load balances access from a singel service endpoint into our running container(s)
+**Ingress** Describes the ingress route that directs the ingress controller's **external** endpoint to our internal service endpoint
+
+### deployment.yaml
+Firstly let's create a deployment object that configures our pod and container, amongst other things. 
+
+```
+kubectl apply -f scripts/kubernetes/deployment.yaml
+```
+
+### service.yaml
+
+```
+kubectl apply -f scripts/kubernetes/service.yaml
+```
+
+
+### ingress.yaml
+
+```
+kubectl apply -f scripts/kubernetes/ingress.yaml
+```
+
+### Running your application
 
 
