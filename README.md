@@ -32,7 +32,7 @@ The table of contents below shows the steps outlined in both of the sections.
  6. Configuring your external DNS
  7. Creating a cluster plan
  
- [**Part Two - Creating clusters and Deploying the Appvia Maps Application**](admin-README.md)
+ [**Part Two - Creating clusters and Deploying the Appvia Maps Application**](app-README.md)
  1. Team workspace setup
  2. Creating a Workspace
  3. Creating a cluster plan
