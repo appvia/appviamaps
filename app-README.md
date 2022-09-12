@@ -128,7 +128,16 @@ Select the **"frontend"** namespace
 
 Your Kubectl has now been configured to point at the **"ukdemo"** cluster with admin proviledges for the **"frontend"** namespace.
 
-## Building and Deploying the application
+# Configuration of the application
+- Create & Configure Database
+- Configure Google Maps API Access
+- Build the Application Containers
+- Deploy the application to Kubernetes 
+
+## Create & Conigure Database
+The application
+
+## Building the application
 This section runs through building and deploying the application. We would usually use a packaging framework like Helm to help us, but we will go through manual configuration to better our understaning og the components and configuration.
 
 **Prerequisite - You need to have a container builder susch as [Docker Engine (Linux)](https://docs.docker.com/desktop/install/linux-install/), [Docker desktop (Mac/Windows)](https://www.docker.com/products/docker-desktop/) or [Podman (Mac/linux)](https://podman.io/)** 
@@ -149,7 +158,10 @@ docker push  [YOUR_REPO/IMAGENAME:IMAGETAG]
 ### Build the backend services container
 The services is currently deployed in a single container (frontend) the next version will split the frontend and backend containers. 
 
-### Create the Kubernetes configuration
+
+
+
+## Create the Kubernetes configuration
 Our Kubernetes configuration is fairly simple, consiting of:
 
 - **Configmap** Describs the external configuration needed for the application to run 
@@ -194,5 +206,6 @@ kubectl apply -f scripts/kubernetes/ingress.yaml
 ```
 
 ### Running your application
+
 
 
