@@ -94,5 +94,5 @@ Select the **Manage self-service DNS zones** tile from the administator page.
 You will be presented with an **Action Required** with NS records that are required to deletgate your DNS to the Wayfinder managed DNS zone. Update your original DNS NS records to reflect the delegation to Wayfinder managed zones.
 
 ## Creating a cluster plan
-At this point we could create a cluster plan to template and guardrail our users to help define or restrict the Kubernetes clusters that they will be able to create. We are going to stick to the out of the box pre-defined cluster plans for mow which provide sensible defaults. 
+At this point we could create a cluster plan to template and guardrail our users to help define or restrict the Kubernetes clusters that they will be able to create. We are going to stick to the out of the box pre-defined cluster plans for now which provide sensible defaults. 
 
