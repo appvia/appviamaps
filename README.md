@@ -38,15 +38,15 @@ Follow the instructions from the marketplace page to create a Wayfinder instance
 ## Amazon AWS
 We'll come back to this service. 
 
-# Download the Wayfinder CLI
-
-You will need the Wayfinder CLI downloaded and installed, follow the instructions provided here https://docs.appvia.io/wayfinder/cli
-
-# Configuring your Wayfinder instance ready for teams to start coding
+# Configuring your Wayfinder instance
 
 Once you have a basic Wayfinder instance up and running there are some important steps that a Wayfinder administrator must complete to make the platform vilable to end users to start creating resources. 
 
-## Log into your cloud CLI
+## Download the Wayfinder CLI
+
+You will need the Wayfinder CLI downloaded and installed, follow the instructions provided here https://docs.appvia.io/wayfinder/cli
+
+## Download and Log into your cloud CLI
 Before setting up your Wayfinder instance you must have your cloud CLI installed and installed on your local machine. For Azure, please see the Microsoft documentation: https://docs.microsoft.com/en-us/cli/azure/authenticate-azure-cli
 
 ```
@@ -84,11 +84,11 @@ Once this is run from the UI, you will nothice that there are items highlighted 
 
 This command performs the linking of the Wayfinder components to the underlying cloud account to set up IAM and Could Roles. 
 
-# Configuring users
+## Configuring users
 
 For this tutorial we will not configure any new users.We'll use the localAdmin user that was asutomatically created during the install. 
 
-# Configuring external DNS
+## Configuring external DNS
 
 Wayfinder makes it simple for your developers to create applications and expose them externally through managed DNS. We'll configure this instance to manage DNS for our develoeprs. 
 
@@ -98,6 +98,10 @@ Select the **Manage self-service DNS zones** tile from the administator page.
 
 ![set ip DNS](/img/img5.jpeg )
 
-**Fill out the DNS form following instructions here: https://docs.appvia.io/wayfinder/admin/networking/dns**
+*(This tutorial assumes that you have access and ownership to a Domain and the ability to deligate DNS to the Wayfinder managed DNS zone)*
+**Fill out the DNS form, following instructions here: https://docs.appvia.io/wayfinder/admin/networking/dns**
 
+You will be presented with an **Action Required** with NS records that are required to deletgate your DNS to the Wayfinder managed DNS zone. Update your original DNS NS records to reflect the delegation to Wayfinder managed zones.
+
+# Setting up your team workspaces
 
