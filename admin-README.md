@@ -1,27 +1,12 @@
-# AppviaMaps - Appvia Wayfinder Basic Tutorial
+# AppviaMaps Administrator - Appvia Wayfinder install and setup
 
-This is a tutorial that show how to deploy a containerised application into Appvia Wayfinder, making public cloud services easily consumable, securely and at scale.
 
-The following instructions will walk  through getting going from scratch with Appvia Wayfinder. 
-
- 1. Getting an Appvia Wayfinder instance through cloud marketplace
- 2. Download the Wayfinder CLI
- 2. Configuring your Wayfinder instance ready for teams to start coding
- 3. Configure your cloud account
- 4. Configuring users
- 5. Configuring your external DNS
- 3. Team workspace setup
- 6. Creating a Workspace
- 7. Creating a cluster plan
- 8. Create a Kuernetes cluster
- 9. Deploy your application
- 10. Build the frontend container
- 11. Build the backend services container
- 12. Create the Kubernetes configuration files
- 13. deployment.yaml
- 14. service.yaml
- 15. ingress.yaml
- 16. Running your application
+1. Getting an Appvia Wayfinder instance through cloud marketplace
+2. Download the Wayfinder CLI
+3. Configuring your Wayfinder instance ready for teams to start coding
+4. Configure your cloud account
+5. Configuring users
+6. Configuring your external DNS
 
 # Getting an Appvia Wayfinder instance through cloud marketplace
 
@@ -107,48 +92,6 @@ Select the **Manage self-service DNS zones** tile from the administator page.
 
 You will be presented with an **Action Required** with NS records that are required to deletgate your DNS to the Wayfinder managed DNS zone. Update your original DNS NS records to reflect the delegation to Wayfinder managed zones.
 
-# Setting up your team workspaces
-
-The last part of wortk we need to do in setting up ready to start coding is to create a team workspace. The workspace is where we add team users, create clusters and apply policy.
-
-Creating a workspace is very simple. Switch to the user view of Wayfinder by clicking on the Wayfinder logo on the top left hand side of the UI.
-
-![Switch to the Wayfinder user page](/img/img6.jpeg )
-
-This page show the the workspaces that you are a member of. There should be no workspaces in a new cluster so **click on the "Add Workspace" button** at the top right of the page. 
-
-![Create Workspace modal](/img/img7.jpeg )
-
-**Create the workspace with the name 'Appvia Maps Workspace' and the three letter code 'mdw' and click next.**
-
-At this point you are given the choice to add workspace mambers, we'll skip this and create the workspace by clicking **"go to workspace"**
-
-We'll be presented with the workspace landing page with similar quickstart tiles that you saw in the Admin page. 
-
-![Workspace main page](/img/img8.jpeg )
-
 ## Creating a cluster plan
 At this point we could create a cluster plan to template and guardrail our users to help define or restrict the Kubernetes clusters that they will be able to create. We are going to stick to the out of the box pre-defined cluster plans for mow which provide sensible defaults. 
 
-# Creating your Kubernetes cluster 
-Let's create the Kubernetes cluster we are going to use to deploy our application.
-
-From the 'mdw' Workspace click on the 'Create Cluster' tile 
-
-![Create Cluster tile](/img/img9.jpeg )
-
-From here. we will create am AKS cluster within the subscription that we set up earlier. Select the default AKS cluster plan, accepting all of the defaults and then click on the **"Create"** button. 
-
-
-![Create Cluster details](/img/img11.jpeg )
-
-On the next modal create a "demo" namespace and continue.
-
-This will take between 7-20 mins to create an AKS cluster and be ready to go. 
-
-# Deploying the AppviaMaps application
-
-We should have everything now set up ready to build and deploy our application. 
-
-
-![App architecture](/img/img13.jpeg )
