@@ -152,9 +152,26 @@ The services is currently deployed in a single container (frontend) the next ver
 ### Create the Kubernetes configuration
 Our Kubernetes configuration is fairly simple, consiting of:
 
-**Deployment** Describing our Kubernetes pod, which points to our container image, and configures thingss likle replica sets etc.
-**Service** Describes the **internall** service endpoint that load balances access from a singel service endpoint into our running container(s)
-**Ingress** Describes the ingress route that directs the ingress controller's **external** endpoint to our internal service endpoint
+- **Configmap** Describs the external configuration needed for the application to run 
+- **Deployment** Describing our Kubernetes pod, which points to our container image, and configures thingss likle replica sets etc.
+- **Service** Describes the **internall** service endpoint that load balances access from a singel service endpoint into our running container(s)
+- **Ingress** Describes the ingress route that directs the ingress controller's **external** endpoint to our internal service endpoint
+
+### Congifigmap
+We will create a Kubernetes to externalise some of our keys and access URLS. 
+1 - Create a file called .Env with the following configuration parameters: 
+
+```
+APPVIAMAP_API_KEY=[an API KEY for google maps (leave blank for dev)] 
+SERVICE_URL=http://localhost:9000/getMapData? 
+DATABASE_URL=[postgres connection URL]
+```
+
+2 - Create a configmap from this file
+
+```
+kubectl create configmap env --from-file=./.Env
+```
 
 ### deployment.yaml
 Firstly let's create a deployment object that configures our pod and container, amongst other things. 
