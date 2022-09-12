@@ -1,8 +1,11 @@
 # AppviaMaps - Appvia Wayfinder Basic Tutorial
 
-![Application image](/img/app.jpeg )
 
 This is a tutorial that show how to deploy a containerised application into Appvia Wayfinder, making public cloud services easily consumable, securely and at scale.
+
+![Application image](/img/app.jpeg )
+
+## Application Architecture
 
 The application architecture we shall be deploying includes a browser based app which communicates to a frontend UI service. The seperately deployed services on the back end are responsible for communicatng with the map data and sending to the frntend. 
 
