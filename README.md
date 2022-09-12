@@ -4,7 +4,8 @@ This is a demo project that show how to deploy a containerised application into 
 
 The following instructions will walk  through getting going from scratch with Appvia Wayfinder. 
 
- 1.  Getting an Appvia Wayfinder instance through cloud marketplace
+ 1. Getting an Appvia Wayfinder instance through cloud marketplace
+ 2. Download the Wayfinder CLI
  2. Configuring your Wayfinder instance ready for teams to start coding
  3. Configure your cloud account
  4. Configuring users
@@ -37,9 +38,23 @@ Follow the instructions from the marketplace page to create a Wayfinder instance
 ## Amazon AWS
 We'll come back to this service. 
 
+# Download the Wayfinder CLI
+
+You will need the Wayfinder CLI downloaded and installed, follow the instructions provided here https://docs.appvia.io/wayfinder/cli
+
 # Configuring your Wayfinder instance ready for teams to start coding
 
 Once you have a basic Wayfinder instance up and running there are some important steps that a Wayfinder administrator must complete to make the platform vilable to end users to start creating resources. 
+
+## Log into your cloud CLI
+Before setting up your Wayfinder instance you must have your cloud CLI installed and installed on your local machine. For Azure, please see the Microsoft documentation: https://docs.microsoft.com/en-us/cli/azure/authenticate-azure-cli
+
+```
+az login 
+# Set the subscription to the friendly name of the subscription 
+# you wish Wayfinder to use:
+az account set --subscription "SUBSCRIPTION_NAME"
+```
 
 ##  Configure your cloud account
 Wayfinder has been installed into your public cloud of choce either through a cloud marketplace or a manual install. Wayfinder is a control plane for creating anad managing resources on **any cloud**. For Wayfinder to create services in your public cloud, it **must** have access to that coud account with roles that enable Wayfinder to create and manage resoruces.    
@@ -54,64 +69,23 @@ Here we can configure a cloud account onto one of the three clouds that you want
 
 ![Wayfinder account creation](/img/img3.jpeg )
 
-**Connect an existing account**
-This choice allows us to bring an exiting account under the control of Wayfinder, where all clusters and cloud resources will be created. 
+**Connect an existing shared  account**
+This choice allows us to bring an existing account under the control of Wayfinder, where all clusters and cloud resources will be created. 
+
+The docs describe this process, including setting up cloud account management
+https://docs.appvia.io/wayfinder/admin/accounts/azure-shared
+https://docs.appvia.io/wayfinder/admin/accounts/aws-shared
 
 **Use multi-account automation**
 This choice allows us to bring an organizational account into Wayfinder. This choice will allow Wayfinder to create brand new isolated cloud accounts on your behalf into which Wayfinder will create resources, This allows futher secure isolation with many teams having resources within individual cloud accounts managed by Wayfinder. 
 
+The docs describe this process, including setting up cloud account management
+https://docs.appvia.io/wayfinder/admin/accounts/azure-org
+https://docs.appvia.io/wayfinder/admin/accounts/aws-org
+
+**Choose your accout type and fill out the the coud account details**
+This tutorial assimes that you have installed Wayfinder from Azure Marketplace, and as such already has a cloud identity automatically created. If this is not the case then follow the instructions here: https://docs.appvia.io/wayfinder/admin/accounts/azure-cloud-identity
+
+We will be using a shared account for simplicity. After filling in the accout detais and submitting you will notice that there are "Action 
 
 
-
-
-
-
-## SmartyPants
-
-SmartyPants converts ASCII punctuation characters into "smart" typographic punctuation HTML entities. For example:
-
-|                |ASCII                          |HTML                         |
-|----------------|-------------------------------|-----------------------------|
-|Single backticks|`'Isn't this fun?'`            |'Isn't this fun?'            |
-|Quotes          |`"Isn't this fun?"`            |"Isn't this fun?"            |
-|Dashes          |`-- is en-dash, --- is em-dash`|-- is en-dash, --- is em-dash|
-
-
-## KaTeX
-
-You can render LaTeX mathematical expressions using [KaTeX](https://khan.github.io/KaTeX/):
-
-The *Gamma function* satisfying $\Gamma(n) = (n-1)!\quad\forall n\in\mathbb N$ is via the Euler integral
-
-$$
-\Gamma(z) = \int_0^\infty t^{z-1}e^{-t}dt\,.
-$$
-
-> You can find more information about **LaTeX** mathematical expressions [here](http://meta.math.stackexchange.com/questions/5020/mathjax-basic-tutorial-and-quick-reference).
-
-
-## UML diagrams
-
-You can render UML diagrams using [Mermaid](https://mermaidjs.github.io/). For example, this will produce a sequence diagram:
-
-```mermaid
-sequenceDiagram
-Alice ->> Bob: Hello Bob, how are you?
-Bob-->>John: How about you John?
-Bob--x Alice: I am good thanks!
-Bob-x John: I am good thanks!
-Note right of John: Bob thinks a long<br/>long time, so long<br/>that the text does<br/>not fit on a row.
-
-Bob-->Alice: Checking with John...
-Alice->John: Yes... John, how are you?
-```
-
-And this will produce a flow chart:
-
-```mermaid
-graph LR
-A[Square Rect] -- Link text --> B((Circle))
-A --> C(Round Rect)
-B --> D{Rhombus}
-C --> D
-```
