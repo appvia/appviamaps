@@ -140,7 +140,7 @@ From the 'mdw' Workspace click on the 'Create Cluster' tile
 From here. we will create am AKS cluster within the subscription that we set up earlier. Select the default AKS cluster plan, accepting all of the defaults and then click on the **"Create"** button. 
 
 
-![Create Cluster details](/img/img10.jpeg )
+![Create Cluster details](/img/img11.jpeg )
 
 On the next modal create a "demo" namespace and continue.
 
@@ -151,4 +151,4 @@ This will take between 7-20 mins to create an AKS cluster and be ready to go.
 We should have everything now set up ready to build and deploy our application. 
 
 
-![App architecture](/img/img12.jpeg )
+![App architecture](/img/img13.jpeg )
