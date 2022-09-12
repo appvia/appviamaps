@@ -73,19 +73,29 @@ Here we can configure a cloud account onto one of the three clouds that you want
 This choice allows us to bring an existing account under the control of Wayfinder, where all clusters and cloud resources will be created. 
 
 The docs describe this process, including setting up cloud account management
-https://docs.appvia.io/wayfinder/admin/accounts/azure-shared
-https://docs.appvia.io/wayfinder/admin/accounts/aws-shared
+- https://docs.appvia.io/wayfinder/admin/accounts/azure-shared
+- https://docs.appvia.io/wayfinder/admin/accounts/aws-shared
 
 **Use multi-account automation**
 This choice allows us to bring an organizational account into Wayfinder. This choice will allow Wayfinder to create brand new isolated cloud accounts on your behalf into which Wayfinder will create resources, This allows futher secure isolation with many teams having resources within individual cloud accounts managed by Wayfinder. 
 
 The docs describe this process, including setting up cloud account management
-https://docs.appvia.io/wayfinder/admin/accounts/azure-org
-https://docs.appvia.io/wayfinder/admin/accounts/aws-org
+- https://docs.appvia.io/wayfinder/admin/accounts/azure-org
+- https://docs.appvia.io/wayfinder/admin/accounts/aws-org
 
-**Choose your accout type and fill out the the coud account details**
+**Choose to create a shared accout and fill out the the coud account details**
 This tutorial assimes that you have installed Wayfinder from Azure Marketplace, and as such already has a cloud identity automatically created. If this is not the case then follow the instructions here: https://docs.appvia.io/wayfinder/admin/accounts/azure-cloud-identity
 
-We will be using a shared account for simplicity. After filling in the accout detais and submitting you will notice that there are "Action 
+The documentaiton is here: https://docs.appvia.io/wayfinder/admin/accounts/azure-shared
+
+Once this is ru from the UI, you will nothice that there are items highlighted with **"Action Required"** which indicate that you must run some CLI commands. Execute the following commmands (You must log into your Azure CLI before executing thise commands):
+
+''' wf setup roles'''
+
+
+
+
+
+
 
 
