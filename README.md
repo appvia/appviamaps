@@ -35,13 +35,13 @@ The table of contents below shows the steps outlined in each of the sections.
  6. Configuring your external DNS
  7. Creating a cluster plan
  
- [**Part Two - Creating clusters and Deploying the Appvia Maps Application**](cluster-README.md)
+ [**Part Two - Creating a workspace and cluster**](cluster-README.md)
  1. Team workspace setup
  2. Creating a Workspace
  3. Creating a cluster plan
  4. Create a Kubernetes cluster
  
- [**Part Three - Creating clusters and Deploying the Appvia Maps Application**](app-README.md)
+ [**Part Three - Deploying the Appvia Maps Application**](app-README.md)
  1. Deploy your application
  2. Build the frontend container
  3. Build the backend services container
