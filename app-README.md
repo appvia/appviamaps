@@ -46,7 +46,7 @@ The mapdata database holds map data sets fopr the front end to display
 - Deploy the application to Kubernetes 
 
 
-**NB: If you have not alreasy set up a workspace and created a Kubernetes cluster then head on over to [Part Two - Creating your workspace and cluster](cluster-README.md)
+**NB: If you have not alreasy set up a workspace and created a Kubernetes cluster then head on over to [Part Two - Creating your workspace and cluster](cluster-README.md)**
 
 ## Create & Configure Database
 The application retrieves map data from a postgres database. We must first configure the database for the application. Version 1 of this tutorial uses a pre-configured DB and does not walk thrugh the creation of the database. We are assuming that a PostgreSQL varient of database has been provisioned and the database URL made available externally to the application. 
