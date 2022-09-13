@@ -17,11 +17,12 @@ The tutorial is split into two sections.
 The first part of the tutorial walks through setting up Appvia Wayfinder with the basic defaults from Microsoft Azure Marketplace ready to use to deploy the demo app with a public endpoint.
 
 [**Part Two - Creating your workspace and cluster**](cluster-README.md)
+The second part will alk through setting up a team workspace and then creating and accessing clusters.
 
 [**Part Three - Creating clusters and Deploying the Appvia Maps Application**](app-README.md)
-The following instructions will walk  through getting going from scratch with Appvia Wayfinder. 
+The final section will walk you through deploying creating the database dependencies, kubernetes configuration and application deployment. 
 
-The table of contents below shows the steps outlined in both of the sections. 
+The table of contents below shows the steps outlined in each of the sections. 
 
 ### Table of Contents
 
