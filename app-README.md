@@ -37,14 +37,11 @@ The dataServices.js connects directly to the database to present a set of map fa
 #### postgress (mapdata)
 The mapdata database holds map data sets fopr the front end to display
 
-
-
 # Building and deploying the Appvia.io MyMap application
 - Create & Configure Database
 - Configure Google Maps API Access
 - Build the Application Containers
 - Deploy the application to Kubernetes 
-
 
 **NB: If you have not alreasy set up a workspace and created a Kubernetes cluster then head on over to [Part Two - Creating your workspace and cluster](cluster-README.md)**
 
@@ -64,9 +61,16 @@ The database initialisation data scripts are defined in [scripts/data.sql](scrip
 ```
 psql -h [hostname] -p 5432 -U [username] -f data.sql
 ```
-## Configure Google Maps API Access
+## Configure Google Maps API Key (Optional)
+The Appvia.io MyMap application makes use of google maps and the google maps API. Without an API Key, the map that is displayed will be watermarked with "development only" and appear dark. This is fine for testing, but if you would like oto get a fully functional map then you must create an API key to access th javascript map API from google. The map API is free for up to 2000 requests a day so is fine for our purposes.  
+
+Head over to the google documentation to find out how to greate your API Key. This will require a billing account, but you can set the linit to zero to ensure you do not get charged!
+
 https://developers.google.com/maps/documentation/javascript/get-api-key
 
+Once you have your API Key, then the key will be copied over into a configmap that the application will pick up at runtime. **Do not check your keys into github or any other public repository**
+
+It's a good idea to move the key into an encrypted secret, but for now we will use a configmap.
 
 ## Building the application
 This section runs through building and deploying the application. We would usually use a packaging framework like Helm to help us, but we will go through manual configuration to better our understaning og the components and configuration.
