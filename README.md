@@ -26,7 +26,7 @@ The table of contents below shows the steps outlined in each of the sections.
 
 ### Table of Contents
 
-[**Part One - Setting up Appvia Wayfinder**](app-README.md)
+[**Part One - Setting up Appvia Wayfinder**](admin-README.md)
  1. Getting an Appvia Wayfinder instance through cloud marketplace
  2. Download the Wayfinder CLI
  3. Configuring your Wayfinder instance ready for teams to start coding
