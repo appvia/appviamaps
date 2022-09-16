@@ -153,6 +153,24 @@ kubectl logs [POD_NAME] -n frontend
 ### service.yaml
 Once the deployment is working, then we need to create a service, which is essentially an internal load balancer which takes a request from a stable well defined service endpoint and load balances requests to pods which can be deployed anywhere in the cluster and have internal ip addresses defined at runtime and configured as they are deployed and re-sheduled across nodes in your cluster.
 
+The service links a service endpoint to a pod through labels. Simply addding the pod selector label, which matches the label defined in the deployment pod spec is enough to configure thei internal network routing,
+
+
+```
+**the pod's label within the deployment.yaml
+metadata:
+  name: amd 
+  labels:
+    app: amd
+    app.kubernetes.io/name: amd
+
+**the selector within the service.yaml 
+spec:
+  selector:
+    app.kubernetes.io/name: amd
+```
+
+**Go ahead and create the service by applying the service.yaml**
 ```
 kubectl apply -f scripts/kubernetes/service.yaml
 ```
@@ -198,6 +216,20 @@ spec:
  
  4. The ingress.yaml also contains a network policy which allows the ingress controller to connect to our "frontend" namespace on port 9000
  
+ ```
+ spec:
+  ingress:
+    - ports:
+        - protocol: TCP
+          port: 9000
+      from:
+        - namespaceSelector:
+            matchLabels:
+              kubernetes.io/metadata.name: ingress
+  podSelector: 
+    matchLabels:
+      app.kubernetes.io/name: "amd"
+```
  
  **Go ahead and apply the ingress.yaml**
 ```
