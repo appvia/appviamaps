@@ -237,4 +237,15 @@ spec:
 kubectl apply -f scripts/kubernetes/ingress.yaml
 ```
 
+Your application should now be available on public DNS with at the address defined by the ingress. Describe the ingress resource to see the configures hostnam. The full URL mayhave been updated according to rules that have been set up by the DNZ Zone to give your application a unique DNS address. By default Wayfinder adds {workspace}, {clustername} and {stage} to the begining of the URL.
+
+Check the hostname
+```
+kubectl get ingress -n frontend
+```
+
+Finally go to a browser and enter the URL and the application should be running:
+
+![Application image](/img/app2.jpeg )
+
 
