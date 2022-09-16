@@ -121,21 +121,84 @@ kubectl create configmap env --from-file=./.Env
 ```
 
 ### deployment.yaml
-Firstly let's create a deployment object that configures our pod and container, amongst other things. 
+Firstly let's create a deployment object that configures our pod and container, amongst other things. The deployment yaml file will create a deployment resource along with pods(with running container) and replicationcontroller resources within the cluster.
 
 ```
 kubectl apply -f scripts/kubernetes/deployment.yaml
 ```
 
+You can check that the deployment has succeeded by running the following checkes. 
+
+```
+1 - Does the deplolyment exist
+kubectl get deployments -n frontend
+
+2 - Has the pod been created
+kubectl get pods -n frontend
+```
+
+If there are any errors that appear in the deployment or pods then investigate further by describing the resource or checking the pod logs or events. 
+
+```
+1 - Check for Kubernetes events
+kubectl get events
+
+2 - Describe a resource for more information
+kubectl describe deployment [DEPLOYMENT_NAME] -n frontend
+
+3 - Get pod logs
+kubectl logs [POD_NAME] -n frontend 
+```
+
 ### service.yaml
+Once the deployment is working, then we need to create a service, which is essentially an internal load balancer which takes a request from a stable well defined service endpoint and load balances requests to pods which can be deployed anywhere in the cluster and have internal ip addresses defined at runtime and configured as they are deployed and re-sheduled across nodes in your cluster.
 
 ```
 kubectl apply -f scripts/kubernetes/service.yaml
+
+check that the service is deployed
+kubectl get services -n frontend 
+kubectl describe service [SERVICE_NAME] -n frontend
 ```
 
-
 ### ingress.yaml
+The final part of the deployment is to deploy an ingress resource for our application. 
 
+When we created our cluster, we checked the box to include an "ingress controller". The default ingress controller is a NGINX load balancer that is configured to route incoming requests through fully qualified addresses to a service endpoint defined by the service resource that has just been created. 
+
+When we deploy an ingress resource it dows a few things: 
+
+1 - The ingress controller configures it's routing rules according to  ingress rules configuration. In our instance we configure the ingress controller to route external traffic from the hostname **host: mdw-ukdemo.demo-aws.wf.appvia.io*** to an internal service endpoint with a service name configures as **name: amd-service** on port 8080
+
+```
+spec:
+  ingressClassName: external
+  rules:
+  - host: mdw-ukdemo.demo-aws.wf.appvia.io
+    http:
+      paths:
+      - backend:
+          service:
+            name: amd-service
+            port:
+              number: 8080
+        path: /
+        pathType: Prefix
+```
+2. Wayfinder will create a certificate using the "Wayfinder certificate manager" (deployed into the cluster automatically) and generate a certificate request with LetsEncrypt which will issue the certificate. 
+
+```
+  annotations:
+    cert-manager.io/cluster-issuer: "prod-le-dns01" 
+```
+
+3. Wayfinder will identify that there is a new public endpoint required, and if a DNS Zone has been created for the cluster Wayfinder will generate the DNS records required to route DNS to the externally facing ingress controller, and hance automatically create a DNS name for your ingress that is used to provide external access to the application.
+ 
+ 
+ 4. The ingress.yaml also contains a network policy which allows the ingress controller to connect to our "frontend" namespace on port 9000
+ 
+ 
+ **Go ahead and apply the ingress.yaml**
 ```
 kubectl apply -f scripts/kubernetes/ingress.yaml
 ```
