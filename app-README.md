@@ -155,8 +155,9 @@ Once the deployment is working, then we need to create a service, which is essen
 
 ```
 kubectl apply -f scripts/kubernetes/service.yaml
-
+```
 check that the service is deployed
+```
 kubectl get services -n frontend 
 kubectl describe service [SERVICE_NAME] -n frontend
 ```
