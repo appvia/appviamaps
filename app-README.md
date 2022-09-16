@@ -123,6 +123,7 @@ kubectl create configmap env --from-file=./.Env
 ### deployment.yaml
 Firstly let's create a deployment object that configures our pod and container, amongst other things. The deployment yaml file will create a deployment resource along with pods(with running container) and replicationcontroller resources within the cluster.
 
+**Go ahead and create the deployment by applying the deploment.yaml file as below
 ```
 kubectl apply -f scripts/kubernetes/deployment.yaml
 ```
@@ -170,7 +171,7 @@ spec:
     app.kubernetes.io/name: amd
 ```
 
-**Go ahead and create the service by applying the service.yaml**
+**Go ahead and create the service by applying the service.yaml as below**
 ```
 kubectl apply -f scripts/kubernetes/service.yaml
 ```
@@ -231,7 +232,7 @@ spec:
       app.kubernetes.io/name: "amd"
 ```
  
- **Go ahead and apply the ingress.yaml**
+ **Go ahead and create the ingress by applying the ingress.yaml as below**
 ```
 kubectl apply -f scripts/kubernetes/ingress.yaml
 ```
