@@ -52,7 +52,7 @@ For this tutorial I am using an Amazon RDS database, mainly because I can ustils
 
 ### Database creation scripts 
 The database creation scripts are defined in [scripts/database.sql](scripts/database.sql)
-From your sql editor execute the following command:
+From your sql or whichever commands you use to execute creation and inserts eveccute the contents of the database initialisation scripts.
 ```
 psql -h [hostname] -p 5432 -U [username] -f database.sql
 ```
