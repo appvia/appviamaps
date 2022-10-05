@@ -201,7 +201,7 @@ spec:
           service:
             name: amd-service
             port:
-              number: 8080
+              number: 9000
         path: /
         pathType: Prefix
 ```
