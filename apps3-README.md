@@ -1,4 +1,4 @@
-# Deploying the AppviaMaps application
+# Deploying the AWS S3 version of the AppviaMaps application
 If you have not set up your Appvia Wayfnder instance then head on over to the [Setting up Appvia Wayfinder](admin-README.md) page, which will walk you though installing Wayfinder on teh Azure Marketplace.
 
 If you have completed part one then you should have everything now set up ready to create Kubernetes clusters ready to build and deploy our application. 
@@ -34,11 +34,10 @@ The server.js file is a Node.js application that uses the express webserver to e
 #### dataServices.js
 The dataServices.js connects directly to the database to present a set of map fata to the frontend.
 
-#### postgress (mapdata)
-The mapdata database holds map data sets fopr the front end to display
+#### AWS s3 
+The .Env file setting has an S3 parameter. If this is set to 'true' then the app will look for specific S3 configurartions in the container environment variables. The only thing we need to do to use S3 is set this variable to true.
 
 # Building and deploying the Appvia.io MyMap application
-- Create & Configure Database
 - Configure Google Maps API Access
 - Build the Application Containers
 - Deploy the application to Kubernetes 
@@ -50,17 +49,6 @@ The application retrieves map data from a postgres database. We must first confi
 
 For this tutorial I am using an Amazon RDS database, mainly because I can ustilse the free tier of database service. Once you have the database available you must configure the DB with the following scripts. The datbase connection string must be saved as DATABASE_URL and copied into the .Env file that you will creat later in this section.
 
-### Database creation scripts 
-The database creation scripts are defined in [scripts/database.sql](scripts/database.sql)
-From your sql or whichever commands you use to execute creation and inserts eveccute the contents of the database initialisation scripts.
-```
-psql -h [hostname] -p 5432 -U [username] -f database.sql
-```
-### Database data 
-The database initialisation data scripts are defined in [scripts/data.sql](scripts/data.sql)
-```
-psql -h [hostname] -p 5432 -U [username] -f data.sql
-```
 ## Configure Google Maps API Key (Optional)
 The Appvia.io MyMap application makes use of google maps and the google maps API. Without an API Key, the map that is displayed will be watermarked with "development only" and appear dark. This is fine for testing, but if you would like oto get a fully functional map then you must create an API key to access th javascript map API from google. The map API is free for up to 2000 requests a day so is fine for our purposes.  
 
@@ -84,10 +72,16 @@ The [Dockerfile](/Dockerfile) in this project contains the frontend containerisa
 
 ```
 docker build . -t [YOUR_REPO/IMAGENAME:IMAGETAG]
+
+e.g.
+docker build . -t bobsmith/appviamaps:v1
 ```
 
 ```
 docker push  [YOUR_REPO/IMAGENAME:IMAGETAG]
+
+e.g.
+docker push  bobsmith/appviamaps:v1
 ```
 
 ### Build the backend services container
@@ -152,7 +146,7 @@ kubectl logs [POD_NAME] -n frontend
 ```
 
 ### service.yaml
-Once the deployment is working, then we need to create a service, which is essentially an internal load balancer which takes a request from a stable well defined service endpoint and load balances requests to pods which can be deployed anywhere in the cluster and have internal ip addresses defined at runtime and configured as they are deployed and re-sheduled across nodes in your cluster.
+The serevice description is included in and deployed with the the deployment.yaml file, go and take a look at this. The service, which is essentially an internal load balancer which takes a request from a stable well defined service endpoint and load balances requests to pods which can be deployed anywhere in the cluster and have internal ip addresses defined at runtime and configured as they are deployed and re-sheduled across nodes in your cluster.
 
 The service links a service endpoint to a pod through labels. Simply addding the pod selector label, which matches the label defined in the deployment pod spec is enough to configure thei internal network routing,
 
@@ -171,18 +165,29 @@ spec:
     app.kubernetes.io/name: amd
 ```
 
-**Go ahead and create the service by applying the service.yaml as below**
-```
-kubectl apply -f scripts/kubernetes/service.yaml
-```
+**Check the service by applying the service.yaml as below**
+
 check that the service is deployed
 ```
 kubectl get services -n frontend 
 kubectl describe service [SERVICE_NAME] -n frontend
 ```
 
+**Check the app is running**
+We can check that the app is running by forwading requests from the browser to your kubernetes pod
+```
+kubectl port-forward --namespace appviamaps service/amd-service 9000:9000
+```
+
+In your browser enter the following URL:
+```
+https://localhost:9000
+```
+You should see the application running!
+
+
 ### ingress.yaml
-The final part of the deployment is to deploy an ingress resource for our application. 
+The final part of the deployment is to create a public URL by deploying an ingress resource for our application. 
 
 When we created our cluster, we checked the box to include an "ingress controller". The default ingress controller is a NGINX load balancer that is configured to route incoming requests through fully qualified addresses to a service endpoint defined by the service resource that has just been created. 
 
@@ -247,4 +252,92 @@ kubectl get ingress -n frontend
 Finally go to a browser and enter the URL and the application should be running:
 
 ![Application image](/img/app2.jpeg )
+
+**Where's the data?**
+Remember we switched the configuration to use AWS S3 storage for it's map data? Well, we now need to configure an S3 bucket and use it. This is where we can use the Wayfinder Terranetes ontroller to manage this for us.
+
+**Export your AWS credentials to environment variables**
+```
+export AWS_ACCESS_KEY_ID=[put key here]
+export AWS_SECRET_ACCESS_KEY=[put secret here]
+export AWS_REGION=eu-west-1
+```
+
+**create a kubernetes secret with the AWS credentials**
+```
+kubectl -n terraform-system create secret generic aws --from-literal=AWS_ACCESS_KEY_ID=$AWS_ACCESS_KEY_ID --from-literal=AWS_SECRET_ACCESS_KEY=$AWS_SECRET_ACCESS_KEY --from-literal=AWS_REGION=$AWS_REGION
+```
+
+**Change the terranetes controller to use our secret and allow the modules**
+```
+kubectl delete provider aws
+kubectl apply -f kubernetes/provider.yaml
+kubectl apply -f ./kubernetes/modulepolicy.yaml
+```
+
+**Create the configmap that contains dat for the app to pick up**
+```
+kubectl create configmap env --from-file=./kubernetes/.Env
+```
+
+**Terranetes**
+Download and install the latest terranetes CLI 
+```
+https://github.com/appvia/terranetes-controller/releases/download/v0.3.13/tnctl-darwin-amd64
+
+sudo mv ~/Downloads/tnctl-darwin-amd64 /usr/local/bin/tnctl
+chmod 775 /usr/local/bin/tnctl
+```
+
+Using the tnctl CLI we can now search for an S3 configuration in the allowed repositories
+```
+tnctl search s3
+
+call the resource graemebucket [need to change this!]
+```
+This will generate a piece of YAML, ptut this into a file called bucket.yaml
+
+Apply the yaml
+```
+kubectl apply -f ./bucket.yaml
+```
+
+Approve the terraform
+```
+tnctl describe graemebucket -n appviamaps
+tnctl approve graemebucket -n appviamaps
+```
+
+
+Check which S3 Bucket we are using:
+```
+kc get secret graemebucket -n frontend -o yaml
+echo [bucket id] | base64 --decode
+```
+
+Push the 
+```
+aws s3 ls s3:// [bucket id]
+
+aws s3 ls  s3://terraform-20230120144454872800000001
+aws s3 cp labels.json s3://terraform-20230120144454872800000001
+aws s3 cp lloyds.json s3://terraform-20230120144454872800000001
+```
+
+The app should now have data
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
