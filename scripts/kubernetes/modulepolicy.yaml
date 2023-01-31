@@ -1,0 +1,10 @@
+apiVersion: terraform.appvia.io/v1alpha1
+kind: Policy
+metadata:
+  name: default
+spec:
+  constraints:
+    modules:
+      allowed:
+        - "https://github.com/appvia/.*"
+        - "https://github.com/terraform-aws-modules/.*"

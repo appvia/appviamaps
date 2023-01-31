@@ -1,0 +1,12 @@
+apiVersion: terraform.appvia.io/v1alpha1
+kind: Provider
+metadata:
+  # This name should match the `providerRef` in the Configuration.
+  name: aws
+spec:
+  summary: Default providers for all configurations
+  source: secret
+  provider: aws
+  secretRef:
+    namespace: terraform-system
+    name: aws

@@ -2,13 +2,13 @@ apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
   name: amd-service-ingress
-  namespace: frontend
+  namespace: appviamaps 
   annotations:
     cert-manager.io/cluster-issuer: "prod-le-dns01" 
 spec:
   ingressClassName: external
   rules:
-  - host: mdw-ukdemo.demo-aws.wf.appvia.io
+  - host: am.wss-aks-3.apps.staging.wf.appvia.io 
     http:
       paths:
       - backend:
@@ -20,14 +20,14 @@ spec:
         pathType: Prefix
   tls:
   - hosts:
-    - mdw-ukdemo.demo-aws.wf.appvia.io
+    - am.wss-aks-3.apps.staging.wf.appvia.io
     secretName: amd-service-ingress-tls
 ---
 apiVersion: networking.k8s.io/v1
 kind: NetworkPolicy
 metadata:
   name: amd-service-ingress
-  namespace: frontend
+  namespace: appviamaps
 spec:
   ingress:
     - ports:

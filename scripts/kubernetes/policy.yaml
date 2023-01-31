@@ -1,0 +1,26 @@
+apiVersion: terraform.appvia.io/v1alpha1
+kind: Policy
+metadata:
+  name: checkov
+spec:
+  constraints:
+    checkov:
+      # See: https://www.checkov.io/5.Policy%20Index/terraform.html
+      checks: []
+      # See: https://www.checkov.io/5.Policy%20Index/terraform.html
+      skipChecks: [
+        "CKV_AWS_53",
+        "CKV_AWS_54",
+        "CKV_AWS_55",
+        "CKV_AWS_56",
+        "CKV_AWS_18",
+        "CKV_AWS_144",
+        "CKV_AWS_19",
+        "CKV2_AWS_6",
+        "CKV_AWS_21",
+        "CKV_AWS_145",
+        "CKV_AZURE_36",
+        "CKV_AZURE_33",
+        "CKV2_AZURE_18",
+        "CKV2_AZURE_1"
+      ]

@@ -1,7 +1,5 @@
 apiVersion: apps/v1
-
 kind: Deployment
-
 metadata:
   name: amd 
   labels:
@@ -20,7 +18,7 @@ spec:
     spec:
       containers:
       - name: appviamaps
-        image: gcolman/appviamaps
+        image: gcolman/appviamaps2:v2
         imagePullPolicy: Always
         ports:
         - containerPort: 9000
@@ -34,6 +32,37 @@ spec:
           capabilities:
             drop:
              - ALL  
+        env: 
+          - name: S3_BUCKET_ARN 
+            valueFrom: 
+              secretKeyRef: 
+                name: "graemebucket"
+                key: "S3_BUCKET_ARN" 
+          - name: "S3_BUCKET_BUCKET_DOMAIN_NAME" 
+            valueFrom: 
+              secretKeyRef:  
+                name: "graemebucket"
+                key: "S3_BUCKET_BUCKET_DOMAIN_NAME"
+          - name: "S3_BUCKET_BUCKET_REGIONAL_DOMAIN_NAME"
+            valueFrom: 
+              secretKeyRef: 
+                name: "graemebucket"
+                key: "S3_BUCKET_BUCKET_REGIONAL_DOMAIN_NAME"
+          - name: "S3_BUCKET_HOSTED_ZONE_ID" 
+            valueFrom:
+              secretKeyRef: 
+                name: "graemebucket"
+                key: "S3_BUCKET_HOSTED_ZONE_ID" 
+          - name: "S3_BUCKET_ID" 
+            valueFrom: 
+              secretKeyRef: 
+                name: "graemebucket"
+                key: "S3_BUCKET_ID" 
+          - name: "S3_BUCKET_REGION"
+            valueFrom: 
+              secretKeyRef: 
+                name: "graemebucket"
+                key: "S3_BUCKET_REGION"                
         volumeMounts:
         - name: envvars
           mountPath: "/home/node/app/.Env"
@@ -43,3 +72,15 @@ spec:
       - name: "envvars"
         configMap:
           name: "env"
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: amd-service
+spec:
+  selector:
+    app.kubernetes.io/name: amd
+  ports:
+    - protocol: TCP
+      port: 9000
+      targetPort: 9000

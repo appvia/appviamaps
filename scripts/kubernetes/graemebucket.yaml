@@ -1,0 +1,15 @@
+apiVersion: terraform.appvia.io/v1alpha1
+kind: Configuration
+metadata:
+  annotations:
+    terraform.appvia.io/source: https://github.com/terraform-aws-modules/terraform-aws-s3-bucket?ref=v3.4.0
+    terraform.appvia.io/version: v0.3.7
+  creationTimestamp: null
+  name: graemebucket
+spec:
+  module: https://github.com/terraform-aws-modules/terraform-aws-s3-bucket?ref=v3.4.0
+  providerRef:
+    name: aws
+  writeConnectionSecretToRef:
+    name: graemebucket
+status: {}
