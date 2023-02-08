@@ -1,5 +1,5 @@
 # Deploying the AWS S3 version of the AppviaMaps application
-If you have not set up your Appvia Wayfnder instance then head on over to the [Setting up Appvia Wayfinder](admin-README.md) page, which will walk you though installing Wayfinder on teh Azure Marketplace.
+If you have not set up your Appvia Wayfnder instance then head on over to the [Setting up Appvia Wayfinder](admin-README.md) page, which will walk you though installing Wayfinder on the Azure Marketplace.
 
 If you have completed part one then you should have everything now set up ready to create Kubernetes clusters ready to build and deploy our application. 
 
@@ -44,15 +44,11 @@ The .Env file setting has an S3 parameter. If this is set to 'true' then the app
 
 **NB: If you have not alreasy set up a workspace and created a Kubernetes cluster then head on over to [Part Two - Creating your workspace and cluster](cluster-README.md)**
 
-## Create & Configure Database
-The application retrieves map data from a postgres database. We must first configure the database for the application. Version 1 of this tutorial uses a pre-configured DB and does not walk thrugh the creation of the database. We are assuming that a PostgreSQL varient of database has been provisioned and the database URL made available externally to the application. 
-
-For this tutorial I am using an Amazon RDS database, mainly because I can ustilse the free tier of database service. Once you have the database available you must configure the DB with the following scripts. The datbase connection string must be saved as DATABASE_URL and copied into the .Env file that you will creat later in this section.
 
 ## Configure Google Maps API Key (Optional)
 The Appvia.io MyMap application makes use of google maps and the google maps API. Without an API Key, the map that is displayed will be watermarked with "development only" and appear dark. This is fine for testing, but if you would like oto get a fully functional map then you must create an API key to access th javascript map API from google. The map API is free for up to 2000 requests a day so is fine for our purposes.  
 
-Head over to the google documentation to find out how to greate your API Key. This will require a billing account, but you can set the linit to zero to ensure you do not get charged!
+Head over to the google documentation to find out how to create your API Key. This will require a billing account, but you can set the limit to zero to ensure you do not get charged!
 
 https://developers.google.com/maps/documentation/javascript/get-api-key
 
@@ -61,9 +57,78 @@ Once you have your API Key, then the key will be copied over into a configmap th
 It's a good idea to move the key into an encrypted secret, but for now we will use a configmap.
 
 ## Building the application
-This section runs through building and deploying the application. We would usually use a packaging framework like Helm to help us, but we will go through manual configuration to better our understaning og the components and configuration.
+This section runs through building and deploying the application. We would usually use a packaging framework like Helm to help us, but we will go through manual configuration to better our understanding of the components and configuration.
 
-**Prerequisite - You need to have a container builder susch as [Docker Engine (Linux)](https://docs.docker.com/desktop/install/linux-install/), [Docker desktop (Mac/Windows)](https://www.docker.com/products/docker-desktop/) or [Podman (Mac/linux)](https://podman.io/)** 
+
+
+## Pre-Requisites
+Before running through the steps in the remainder of this section, please ensure that you have the following  pre-requieite components installed  on your laptop . 
+
+1 - Container Runtime
+2 - Appvia WF CLI
+3 - Kubernetes Kubectl CLI
+4 - NPM (Node Package Manager)
+5 - A Dockerhub account
+6 - AWS CLI
+7 - GIT client
+8 - Terranetes TNCTL Client
+
+
+**1 - Container Runtime** 
+You need to have a container builder such as Docker Desktop, go to the official pages to install. 
+[Docker Engine (Linux)](https://docs.docker.com/desktop/install/linux-install/)
+ [Docker desktop (Mac/Windows)](https://www.docker.com/products/docker-desktop/)
+ [Podman (Mac/linux)](https://podman.io/)
+
+**2 - Appvia WF CLI**
+Wayfinder is accessed through the UI or through a CLI (wf) download the wf cli and install locally.
+
+Download the .dmg install file: [https://storage.googleapis.com/wayfinder-releases/v1.6.10/wf-cli-darwin-amd64](https://storage.googleapis.com/wayfinder-releases/v1.6.10/wf-cli-darwin-amd64)
+-   The file will be placed somewhere on your mac (probably in /Users/[your user]/Downloads)
+-   The file will be called wf-cli-darwin-amd64 rename this file by opening a Terminal and using the commands:
+```
+cd ~/Downloads (this changes your working directly to the Downloads folder)   
+mv wf-cli-darwin-amd64 wf (this moves the file called ‘wf-cli-darwin-amd64’ to a file called wf)
+chmod 775 wf (the chmod command changes the permissions on the file so that it can be executed)
+sudo mv wf /usr/local/bin (you will be asked for your password, this will be your Mac password)
+```  
+If you come across security problems, go to mac Setting > Privacy & Security  and allow the wf to be run (which says it's from an unknown source)
+
+**3 - Kubernetes Kubectl CLI**
+Download and install the Kubectl CLI with the following commands:
+```
+cd ~/Downloads
+curl -LO "https://dl.k8s.io/release/$(curl -L -s [https://dl.k8s.io/release/stable.txt](https://dl.k8s.io/release/stable.txt))/bin/darwin/amd64/kubectl"
+chmod 775 ./kubectl
+sudo mv ./kubectl /usr/local/bin/kubectl (you will be asked for your password, this will be your Mac password)
+sudo chown root: /usr/local/bin/kubectl
+  
+kubectl version (will output some version information to show that it works)
+```
+
+**4 - NPM (Node Package Manager)**
+Download and install the node.js framework
+Go here and click on the MacOS installer: [https://nodejs.org/en/download/](https://nodejs.org/en/download/)
+
+Double click on the downloaded .pkg and follow the instructions
+
+**5 - A Container Registry account**
+Any container registry wil;l do but we are using Dockerhub. Go here and sign up.
+  https://hub.docker.com/
+
+**6 - AWS CLI**
+You will need the AWS CLI to do things with the S3 bucket. Follow the instructions here;
+[https://docs.aws.amazon.com/cli/latest/userguide/getting-started-install.html](https://docs.aws.amazon.com/cli/latest/userguide/getting-started-install.html)
+
+**7 - GIT client**
+We'll be using github as our source control repository. Install a git client on your laptop through github:
+https://github.com/git-guides/install-git
+
+
+**8 - Terranetes TNCTL Client**
+Install the latest Terranetes CLI (TNCTL) from here: 
+https://terranetes.appvia.io/terranetes-controller/releases/
+
 
 ### Build the frontend container
 
@@ -325,19 +390,3 @@ aws s3 cp lloyds.json s3://terraform-20230120144454872800000001
 ```
 
 The app should now have data
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
