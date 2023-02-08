@@ -64,15 +64,14 @@ This section runs through building and deploying the application. We would usual
 ## Pre-Requisites
 Before running through the steps in the remainder of this section, please ensure that you have the following  pre-requieite components installed  on your laptop . 
 
-1. - Container Runtime
-2. - Appvia WF CLI
-3. - Kubernetes Kubectl CLI
-4. - NPM (Node Package Manager)
-5. - A Dockerhub account
-6. - AWS CLI
-7. - GIT client
-8. - Terranetes TNCTL Client
-
+ 1 - Container Runtime 
+ 2 - Appvia WF CLI 
+ 3 - Kubernetes Kubectl CLI 
+ 4 - NPM (Node Package Manager) 
+ 5 - A Dockerhub account 
+ 6 - AWS CLI 
+ 7 - GIT client 
+ 8 - Terranetes TNCTL Client
 
 **1 - Container Runtime** 
 You need to have a container builder such as Docker Desktop, go to the official pages to install. 
@@ -130,10 +129,9 @@ Install the latest Terranetes CLI (TNCTL) from here:
 https://terranetes.appvia.io/terranetes-controller/releases/
 
 
-### Build the frontend container
+## Build the frontend container
 
-Firstly we will buld the frontend container image: 
-The [Dockerfile](/Dockerfile) in this project contains the frontend containerisation instructions. Take a look at the Dockerfile to understand. 
+Firstly we will buld the frontend container image: The [Dockerfile](/Dockerfile) in this project contains the frontend containerisation instructions. Take a look at the Dockerfile to understand. 
 
 ```
 docker build . -t [YOUR_REPO/IMAGENAME:IMAGETAG]
@@ -149,7 +147,7 @@ e.g.
 docker push  bobsmith/appviamaps:v1
 ```
 
-### Build the backend services container
+# Build the backend services container
 The services is currently deployed in a single container (frontend) the next version will split the frontend and backend containers. 
 
 
@@ -160,26 +158,33 @@ Our Kubernetes configuration is fairly simple, consiting of:
 
 - **Configmap** Describs the external configuration needed for the application to run 
 - **Deployment** Describing our Kubernetes pod, which points to our container image, and configures thingss likle replica sets etc.
-- **Service** Describes the **internall** service endpoint that load balances access from a singel service endpoint into our running container(s)
+- **Service** Describes the **internal** service endpoint that load balances access from a single service endpoint into our running container(s)
 - **Ingress** Describes the ingress route that directs the ingress controller's **external** endpoint to our internal service endpoint
 
-### Congifigmap
+## Congifigmap
 We will create a Kubernetes to externalise some of our keys and access URLS. 
 1 - Create a file called .Env with the following configuration parameters: 
 
+**TODO remove the repetition of the keys in the code**
 ```
 APPVIAMAP_API_KEY=[an API KEY for google maps (leave blank for dev)] 
 SERVICE_URL=http://localhost:9000/getMapData? 
 DATABASE_URL=[postgres connection URL]
+S3=true
+ACCESS_ID=[your AWS access key ID ]
+ACCESS_KEY=[your AWS access key]
+REGION=eu-west-1
+AWS_ACCESS_KEY_ID=[your AWS access key ID ]
+AWS_SECRET_ACCESS_KEY=[your AWS access key ]
+AWS_DEFAULT_REGION=eu-west-1
 ```
 
 2 - Create a configmap from this file
-
 ```
 kubectl create configmap env --from-file=./.Env
 ```
 
-### deployment.yaml
+## deployment.yaml
 Firstly let's create a deployment object that configures our pod and container, amongst other things. The deployment yaml file will create a deployment resource along with pods(with running container) and replicationcontroller resources within the cluster.
 
 **Go ahead and create the deployment by applying the deploment.yaml file as below
@@ -210,7 +215,7 @@ kubectl describe deployment [DEPLOYMENT_NAME] -n frontend
 kubectl logs [POD_NAME] -n frontend 
 ```
 
-### service.yaml
+## service.yaml
 The serevice description is included in and deployed with the the deployment.yaml file, go and take a look at this. The service, which is essentially an internal load balancer which takes a request from a stable well defined service endpoint and load balances requests to pods which can be deployed anywhere in the cluster and have internal ip addresses defined at runtime and configured as they are deployed and re-sheduled across nodes in your cluster.
 
 The service links a service endpoint to a pod through labels. Simply addding the pod selector label, which matches the label defined in the deployment pod spec is enough to configure thei internal network routing,
@@ -251,7 +256,7 @@ https://localhost:9000
 You should see the application running!
 
 
-### ingress.yaml
+## ingress.yaml
 The final part of the deployment is to create a public URL by deploying an ingress resource for our application. 
 
 When we created our cluster, we checked the box to include an "ingress controller". The default ingress controller is a NGINX load balancer that is configured to route incoming requests through fully qualified addresses to a service endpoint defined by the service resource that has just been created. 
@@ -318,6 +323,7 @@ Finally go to a browser and enter the URL and the application should be running:
 
 ![Application image](/img/app2.jpeg )
 
+# Use Terranetes to create data in AWS S3 bucket
 **Where's the data?**
 Remember we switched the configuration to use AWS S3 storage for it's map data? Well, we now need to configure an S3 bucket and use it. This is where we can use the Wayfinder Terranetes ontroller to manage this for us.
 
@@ -340,27 +346,14 @@ kubectl apply -f kubernetes/provider.yaml
 kubectl apply -f ./kubernetes/modulepolicy.yaml
 ```
 
-**Create the configmap that contains dat for the app to pick up**
-```
-kubectl create configmap env --from-file=./kubernetes/.Env
-```
-
-**Terranetes**
-Download and install the latest terranetes CLI 
-```
-https://github.com/appvia/terranetes-controller/releases/download/v0.3.13/tnctl-darwin-amd64
-
-sudo mv ~/Downloads/tnctl-darwin-amd64 /usr/local/bin/tnctl
-chmod 775 /usr/local/bin/tnctl
-```
-
+**Serach for our S3 bucket configuration to use**
 Using the tnctl CLI we can now search for an S3 configuration in the allowed repositories
 ```
 tnctl search s3
 
 call the resource graemebucket [need to change this!]
 ```
-This will generate a piece of YAML, ptut this into a file called bucket.yaml
+This will generate a piece of YAML, paste this into a file called bucket.yaml
 
 Apply the yaml
 ```
