@@ -407,6 +407,10 @@ You might need to restart the application pod to pick up the new secret data.
 kubectl get pods -n appviamaps
 # This will show a list of the pods in your namespace like: 
 # 
+NAME					READY 	STATUS  	RESTARTS 	AGE
+amd-77df56788d-f9sjc 	1/1 	Running 	0  			6s
 
+#delete the pod to force it to re-deploy
+kubectl delete pod amd-77df56788d-f9sjc -n appviamaps
 ```
 
