@@ -353,33 +353,60 @@ tnctl search s3
 
 call the resource graemebucket [need to change this!]
 ```
-This will generate a piece of YAML, paste this into a file called bucket.yaml
+This will generate a piece of YAML, paste this into a file called bucket.yaml. Your configuration should look something like:
+```
+apiVersion: terraform.appvia.io/v1alpha1
+kind: Configuration
+metadata:
+  annotations:
+    terraform.appvia.io/source: https://github.com/terraform-aws-modules/terraform-aws-s3-bucket?ref=v3.4.0
+    terraform.appvia.io/version: v0.3.7
+  creationTimestamp: null
+  name: graemebucket
+spec:
+  module: https://github.com/terraform-aws-modules/terraform-aws-s3-bucket?ref=v3.4.0
+  providerRef:
+    name: aws
+  writeConnectionSecretToRef:
+    name: graemebucket
+status: {
+```
 
-Apply the yaml
+Once you have pasted the content, you will need to apply the yaml to your cluster to create the Terranetes configuration.
 ```
 kubectl apply -f ./bucket.yaml
 ```
 
-Approve the terraform
+The process for terranetes requires a 2 stage approval process. For example a developer would apply the configuration which would then require approval. Approval is done through the TNCTL CLI, using the approve command.  Go ahead and approve the configuration:
 ```
 tnctl describe graemebucket -n appviamaps
 tnctl approve graemebucket -n appviamaps
 ```
 
-
-Check which S3 Bucket we are using:
+This will then apply the terraform module to go ahead and create your S3 bucket. Once this has been created you can get the name of the bucket from the secret. (Note that the application is expecting to fetch the details aabout the newly created resource, like URLs etc, from a secret named graemebucket.)
+ 
+**Get the  ID of the S3 Bucket we have just created:**
 ```
 kc get secret graemebucket -n frontend -o yaml
 echo [bucket id] | base64 --decode
 ```
 
-Push the 
+Finally, we need to push data into the S3 bucket for our application to pick up.  
 ```
+# list the bucket contents (should be empty) then copy the data files into the bucket
 aws s3 ls s3:// [bucket id]
-
-aws s3 ls  s3://terraform-20230120144454872800000001
 aws s3 cp labels.json s3://terraform-20230120144454872800000001
 aws s3 cp lloyds.json s3://terraform-20230120144454872800000001
 ```
 
-The app should now have data
+Now, your app should have locations!
+
+**If you don't see data?**
+You might need to restart the application pod to pick up the new secret data. 
+```
+kubectl get pods -n appviamaps
+# This will show a list of the pods in your namespace like: 
+# 
+
+```
+
