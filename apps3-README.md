@@ -64,14 +64,14 @@ This section runs through building and deploying the application. We would usual
 ## Pre-Requisites
 Before running through the steps in the remainder of this section, please ensure that you have the following  pre-requieite components installed  on your laptop . 
 
- 1 - Container Runtime 
- 2 - Appvia WF CLI 
- 3 - Kubernetes Kubectl CLI 
- 4 - NPM (Node Package Manager) 
- 5 - A Dockerhub account 
- 6 - AWS CLI 
- 7 - GIT client 
- 8 - Terranetes TNCTL Client
+ 1.  Container Runtime 
+ 2.  Appvia WF CLI 
+ 3.  Kubernetes Kubectl CLI 
+ 4.  NPM (Node Package Manager) 
+ 5.  A Dockerhub account 
+ 6.  AWS CLI 
+ 7.  GIT client 
+ 8.  Terranetes TNCTL Client
 
 **1 - Container Runtime** 
 You need to have a container builder such as Docker Desktop, go to the official pages to install. 
