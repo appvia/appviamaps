@@ -41,7 +41,8 @@ The table of contents below shows the steps outlined in each of the sections.
  3. Creating a cluster plan
  4. Create a Kubernetes cluster
  
- [**Part Three - Deploying the Appvia Maps Application**](app-README.md)
+ [**Part Three - Deploying the Appvia Maps Application using AWS S3**](apps3-README.md)
+ [**Part Three - Deploying the Appvia Maps Application using AWS RDS**](app-README.md)
  1. Deploy your application
  2. Build the frontend container
  3. Build the backend services container
